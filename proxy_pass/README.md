@@ -1,3 +1,26 @@
+## 1. ngx_http_proxy_module模块中配置proxy_pass
+http模块中配置proxy_pass指令用于转发http请求，配置在nginx.conf中的http模块下   
+若prox_pass为相对路径不带斜线/，http://192.168.16.40:5000/api/getData，则后端request_uri为/api/getData  
+```nginx
+server {
+  listen 5000;
+  location /api/ {
+    proxy_pass http://192.168.16.40:5999;
+  }
+}
+```
+prox_pass为绝对路径带/，访问http://192.168.16.40:5000/api/getData，则后端request_uri为/getData   
+```nginx
+server {
+  listen 5000;
+  location /api/ {
+    proxy_pass http://192.168.16.40:5999/;
+  }
+}
+```
+
+
+
 ## 2. ngx_stream_proxy_module模块中配置proxy_pass
 **ngx_stream_proxy_module模块用于创建tcp或udp请求用于连接其他服务，比如redis,mysql；配合proxy_pass指令用于转发请求，该指令只能在server段使用使用, 只需要提供域名或ip地址和端口，文档地址：[https://nginx.org/en/docs/stream/ngx_stream_proxy_module.html](https://nginx.org/en/docs/stream/ngx_stream_proxy_module.html)**  
 例如将浏览器的http请求地址通过tcp转到另一个http服务器地址：   
