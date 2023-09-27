@@ -10,7 +10,7 @@ server {
 }
 ```
 prox_pass为绝对路径带/，访问http://192.168.16.40:5000/api/getData，则后端request_uri为/getData   
-```nginx
+```
 server {
   listen 5000;
   location /api/ {
